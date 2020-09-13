@@ -7,8 +7,19 @@ import (
 	"github.com/joho/godotenv"
 )
 
-// GetAppointments - Get the appointments
-func GetAppointments() string {
+// OpenDental - main developer interface
+type OpenDental struct {
+	Endpoint *API
+}
+
+// NewOpenDental - Constructor
+func NewOpenDental() *OpenDental {
+	client := &OpenDental{}
+	return client.init()
+}
+
+// init - Get the client ready
+func (openDental *OpenDental) init() *OpenDental {
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Error loading .env file")
@@ -17,11 +28,24 @@ func GetAppointments() string {
 	appKey := os.Getenv("APP_KEY")
 	apiKey := os.Getenv("API_KEY")
 	baseURL := os.Getenv("BASE_URL")
-	api := NewAPI(baseURL, appKey, apiKey)
-	resp, getAppointmentErr := api.GetAppointments()
-	if getAppointmentErr != nil {
-		log.Print("Error getting appointments")
-		log.Print(getAppointmentErr)
+	openDental.Endpoint = NewAPI(baseURL, appKey, apiKey)
+	return openDental
+}
+
+// GetAppointments - Get the appointments
+func (openDental *OpenDental) GetAppointments() string {
+	resp, err := openDental.Endpoint.GetAppointments()
+	if err != nil {
+		return ""
+	}
+
+	return resp
+}
+
+// GetPatients - Get the patients
+func (openDental *OpenDental) GetPatients() string {
+	resp, err := openDental.Endpoint.GetPatients()
+	if err != nil {
 		return ""
 	}
 

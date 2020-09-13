@@ -15,14 +15,22 @@ type API struct {
 	baseURL string
 }
 
-func (api *API) getResource(path string) (*resty.Response, error) {
+func (api *API) getResource(path string) (string, error) {
 	url := fmt.Sprintf("%s/%s", api.baseURL, path)
 
-	return api.client.R().EnableTrace().
+	// resty.Response
+	resp, err := api.client.R().EnableTrace().
 		SetHeader("Authorization", fmt.Sprintf("ODFHIR %s/%s", api.appKey, api.apiKey)).
 		SetHeader("Accept", "application/json").
 		SetHeader("Content-Type", "application/json").Get(url)
 
+	if err != nil {
+		log.Printf("Error getting %s", path)
+		log.Print(err)
+		return "", err
+	}
+
+	return resp.String(), nil
 }
 
 // NewAPI - create the api object
@@ -37,12 +45,10 @@ func NewAPI(baseURL string, appKey string, apiKey string) *API {
 
 // GetAppointments - gets all the appointments
 func (api *API) GetAppointments() (string, error) {
-	resp, err := api.getResource("appointment")
-	if err != nil {
-		log.Print("Error getting appointments")
-		log.Print(err)
-		return "", err
-	}
+	return api.getResource("appointment")
+}
 
-	return resp.String(), nil
+// GetPatients - gets all the patients
+func (api *API) GetPatients() (string, error) {
+	return api.getResource("patient")
 }
