@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/jkeam/opendentalgo/models"
 	"github.com/joho/godotenv"
 )
 
@@ -33,21 +34,11 @@ func (openDental *OpenDental) init() *OpenDental {
 }
 
 // GetAppointments - Get the appointments
-func (openDental *OpenDental) GetAppointments() string {
-	resp, err := openDental.Endpoint.GetAppointments()
-	if err != nil {
-		return ""
-	}
-
-	return resp
+func (openDental *OpenDental) GetAppointments() (*models.AppointmentBundle, error) {
+	return openDental.Endpoint.GetAppointments()
 }
 
 // GetPatients - Get the patients
-func (openDental *OpenDental) GetPatients() string {
-	resp, err := openDental.Endpoint.GetPatients()
-	if err != nil {
-		return ""
-	}
-
-	return resp
+func (openDental *OpenDental) GetPatients() (*models.PatientBundle, error) {
+	return openDental.Endpoint.GetPatients()
 }

@@ -15,12 +15,22 @@ func TestMain(m *testing.M) {
 }
 
 func TestGetAppointments(t *testing.T) {
-	appointments := client.GetAppointments()
+	appointments, err := client.GetAppointments()
+	if err != nil {
+		t.Errorf("Failed to get appointments")
+		t.Error(err)
+		return
+	}
 	log.Print("Appointments")
 	log.Print(appointments)
 }
 func TestGetPatients(t *testing.T) {
-	patients := client.GetPatients()
+	patients, err := client.GetPatients()
+	if err != nil {
+		t.Errorf("Failed to get patients")
+		t.Error(err)
+		return
+	}
 	log.Print("Patients")
 	log.Print(patients)
 }

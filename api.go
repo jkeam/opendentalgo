@@ -1,10 +1,12 @@
 package opendentalgo
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 
 	"github.com/go-resty/resty/v2"
+	"github.com/jkeam/opendentalgo/models"
 )
 
 // API - object to hit the endpoint
@@ -15,7 +17,7 @@ type API struct {
 	baseURL string
 }
 
-func (api *API) getResource(path string) (string, error) {
+func (api *API) getResource(path string) ([]byte, error) {
 	url := fmt.Sprintf("%s/%s", api.baseURL, path)
 
 	// resty.Response
@@ -27,10 +29,10 @@ func (api *API) getResource(path string) (string, error) {
 	if err != nil {
 		log.Printf("Error getting %s", path)
 		log.Print(err)
-		return "", err
+		return nil, err
 	}
 
-	return resp.String(), nil
+	return resp.Body(), nil
 }
 
 // NewAPI - create the api object
@@ -43,12 +45,34 @@ func NewAPI(baseURL string, appKey string, apiKey string) *API {
 	}
 }
 
-// GetAppointments - gets all the appointments
-func (api *API) GetAppointments() (string, error) {
-	return api.getResource("appointment")
+// GetAppointments - Get collection of appointments
+func (api *API) GetAppointments() (*models.AppointmentBundle, error) {
+	contents, getErr := api.getResource("appointment")
+	if getErr != nil {
+		log.Print("Error making api call for appointments")
+		return nil, getErr
+	}
+
+	data := &models.AppointmentBundle{}
+	if err := json.Unmarshal(contents, data); err != nil {
+		log.Print("Error unmarshalling appointments")
+		return nil, err
+	}
+	return data, nil
 }
 
-// GetPatients - gets all the patients
-func (api *API) GetPatients() (string, error) {
-	return api.getResource("patient")
+// GetPatients - Get collection of patients
+func (api *API) GetPatients() (*models.PatientBundle, error) {
+	contents, getErr := api.getResource("patient")
+	if getErr != nil {
+		log.Print("Error making api call for patients")
+		return nil, getErr
+	}
+
+	data := &models.PatientBundle{}
+	if err := json.Unmarshal(contents, data); err != nil {
+		log.Print("Error unmarshalling patients")
+		return nil, err
+	}
+	return data, nil
 }
