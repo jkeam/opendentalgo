@@ -62,3 +62,13 @@ func (openDental *OpenDental) FindPatient(
 ) (*models.PatientResource, error) {
 	return openDental.Endpoint.FindPatient(firstName, lastName, birthDate)
 }
+
+// GetLocations - Get collection of locations
+func (openDental *OpenDental) GetLocations() (*models.LocationBundle, error) {
+	return openDental.Endpoint.GetLocations()
+}
+
+// FindLocation - Find the location
+func (openDental *OpenDental) FindLocation(name string) (*models.LocationResource, error) {
+	return openDental.Endpoint.FindLocation(name)
+}

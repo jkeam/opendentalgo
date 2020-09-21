@@ -12,23 +12,24 @@ type PatientBundle struct {
 type Patient struct {
 	FullURL  string          `json:"fullUrl"`
 	Resource PatientResource `json:"resource"`
-	Search   PatientSearch   `json:"search"`
+	Search   Search          `json:"search"`
 }
 
 // PatientResource - detail information on the patient
 type PatientResource struct {
-	ResourceType          string                              `json:"resourceType"`
-	Issues                []PatientResourceIssue              `json:"issue,omitempty"`
-	ID                    string                              `json:"id"`
-	Active                bool                                `json:"active"`
-	Names                 []PatientResourceName               `json:"name"`
-	Gender                string                              `json:"gender"`
-	BirthDate             string                              `json:"birthDate"`
-	Telecoms              []PatientResourceTelecom            `json:"telecom"`
-	Addresses             []PatientResourceAddress            `json:"address"`
-	CareProviders         []PatientResourceCareProvider       `json:"careProvider"`
-	ManagingOrganizations PatientResourceManagingOrganization `json:"managingOrganization"`
-	Meta                  PatientResourceMeta                 `json:"meta"`
+	ResourceType          string                        `json:"resourceType"`
+	Issues                []PatientResourceIssue        `json:"issue,omitempty"`
+	ID                    string                        `json:"id"`
+	Identifiers           []Identifier                  `json:"identifier"`
+	Active                bool                          `json:"active"`
+	Names                 []PatientResourceName         `json:"name"`
+	Gender                string                        `json:"gender"`
+	BirthDate             string                        `json:"birthDate"`
+	Telecoms              []Telecom                     `json:"telecom"`
+	Addresses             []Address                     `json:"address"`
+	CareProviders         []PatientResourceCareProvider `json:"careProvider"`
+	ManagingOrganizations ManagingOrganization          `json:"managingOrganization"`
+	Meta                  PatientResourceMeta           `json:"meta"`
 }
 
 // PatientResourceIssue - issue created as a result of the API call
@@ -51,31 +52,8 @@ type PatientResourceName struct {
 	Given  string `json:"given"`
 }
 
-// PatientResourceTelecom - contact information for patient
-type PatientResourceTelecom struct {
-	System string `json:"system"`
-	Value  string `json:"value"`
-	Use    string `json:"use"`
-	Rank   int    `json:"rank"`
-}
-
-// PatientResourceAddress - address of the patient
-type PatientResourceAddress struct {
-	Use        string   `json:"use"`
-	Lines      []string `json:"line"`
-	City       string   `json:"city"`
-	District   string   `json:"district"`
-	PostalCode string   `json:"postalCode"`
-}
-
 // PatientResourceCareProvider - care provider of the patient
 type PatientResourceCareProvider struct {
-	Reference string `json:"reference"`
-	Display   string `json:"display"`
-}
-
-// PatientResourceManagingOrganization - managing organization of the patient
-type PatientResourceManagingOrganization struct {
 	Reference string `json:"reference"`
 	Display   string `json:"display"`
 }
@@ -83,10 +61,4 @@ type PatientResourceManagingOrganization struct {
 // PatientResourceMeta - meta data related to the patient
 type PatientResourceMeta struct {
 	LastUpdated string `json:"lastUpdated"`
-}
-
-// PatientSearch - patient search
-type PatientSearch struct {
-	Mode  string  `json:"mode"`
-	Score float64 `json:"score"`
 }

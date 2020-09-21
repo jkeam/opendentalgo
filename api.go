@@ -70,6 +70,22 @@ func NewAPI(baseURL string, appKey string, apiKey string) *API {
 	}
 }
 
+// GetLocations - Get collection of locations
+func (api *API) GetLocations() (*models.LocationBundle, error) {
+	contents, getErr := api.getResource("location", nil)
+	if getErr != nil {
+		log.Print("Error making api call for locations")
+		return nil, getErr
+	}
+
+	data := &models.LocationBundle{}
+	if err := json.Unmarshal(contents, data); err != nil {
+		log.Print("Error unmarshalling location")
+		return nil, err
+	}
+	return data, nil
+}
+
 // GetAppointments - Get collection of appointments
 func (api *API) GetAppointments() (*models.AppointmentBundle, error) {
 	contents, getErr := api.getResource("appointment", nil)
@@ -110,8 +126,8 @@ func (api *API) CreatePatient(
 	gender string,
 	birthDate string,
 ) (*models.PatientResource, error) {
-	telecoms := make([]models.PatientResourceTelecom, 1)
-	telecoms[0] = models.PatientResourceTelecom{
+	telecoms := make([]models.Telecom, 1)
+	telecoms[0] = models.Telecom{
 		System: "phone",
 		Value:  cellPhone,
 		Use:    "mobile",
@@ -173,6 +189,30 @@ func (api *API) FindPatient(firstName string, lastName string, birthDate string)
 	data := &models.PatientBundle{}
 	if err := json.Unmarshal(contents, data); err != nil {
 		log.Print("Error unmarshalling patients")
+		return nil, err
+	}
+
+	if len(data.Entry) != 1 {
+		return nil, nil
+	}
+
+	return &data.Entry[0].Resource, nil
+}
+
+// FindLocation - finds the single location based on query parameters
+// will return nil if nothing or more than 1 found
+func (api *API) FindLocation(name string) (*models.LocationResource, error) {
+	queryParams := make(map[string]string)
+	queryParams["name"] = name
+	contents, getErr := api.getResource("location", queryParams)
+	if getErr != nil {
+		log.Print("Error making api call to find location")
+		return nil, getErr
+	}
+
+	data := &models.LocationBundle{}
+	if err := json.Unmarshal(contents, data); err != nil {
+		log.Print("Error unmarshalling locations")
 		return nil, err
 	}
 

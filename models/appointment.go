@@ -19,6 +19,7 @@ type Appointment struct {
 type AppointmentResource struct {
 	ResourceType    string                   `json:"resourceType"`
 	ID              string                   `json:"id"`
+	Identifiers     []Identifier             `json:"identifier"`
 	Status          string                   `json:"status"`
 	Priority        int                      `json:"priority"`
 	Description     string                   `json:"description"`
