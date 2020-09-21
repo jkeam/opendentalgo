@@ -18,6 +18,7 @@ type Patient struct {
 // PatientResource - detail information on the patient
 type PatientResource struct {
 	ResourceType          string                              `json:"resourceType"`
+	Issues                []PatientResourceIssue              `json:"issue,omitempty"`
 	ID                    string                              `json:"id"`
 	Active                bool                                `json:"active"`
 	Names                 []PatientResourceName               `json:"name"`
@@ -28,6 +29,18 @@ type PatientResource struct {
 	CareProviders         []PatientResourceCareProvider       `json:"careProvider"`
 	ManagingOrganizations PatientResourceManagingOrganization `json:"managingOrganization"`
 	Meta                  PatientResourceMeta                 `json:"meta"`
+}
+
+// PatientResourceIssue - issue created as a result of the API call
+type PatientResourceIssue struct {
+	Severity string                     `json:"severity"`
+	Code     string                     `json:"code"`
+	Details  PatientResourceIssueDetail `json:"details"`
+}
+
+// PatientResourceIssueDetail - issue detail
+type PatientResourceIssueDetail struct {
+	Text string `json:"text"`
 }
 
 // PatientResourceName - name of the patient

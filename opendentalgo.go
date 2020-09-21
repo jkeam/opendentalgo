@@ -42,3 +42,23 @@ func (openDental *OpenDental) GetAppointments() (*models.AppointmentBundle, erro
 func (openDental *OpenDental) GetPatients() (*models.PatientBundle, error) {
 	return openDental.Endpoint.GetPatients()
 }
+
+// CreatePatient - Create patient
+func (openDental *OpenDental) CreatePatient(
+	firstName string,
+	lastName string,
+	cellPhone string,
+	gender string,
+	birthDate string,
+) (*models.PatientResource, error) {
+	return openDental.Endpoint.CreatePatient(firstName, lastName, cellPhone, gender, birthDate)
+}
+
+// FindPatient - Finds the patient
+func (openDental *OpenDental) FindPatient(
+	firstName string,
+	lastName string,
+	birthDate string,
+) (*models.PatientResource, error) {
+	return openDental.Endpoint.FindPatient(firstName, lastName, birthDate)
+}

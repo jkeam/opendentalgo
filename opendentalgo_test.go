@@ -33,4 +33,26 @@ func TestGetPatients(t *testing.T) {
 	}
 	log.Print("Patients")
 	log.Print(patients)
+	log.Printf("Total %d", patients.Total)
+}
+
+func TestCreatePatient(t *testing.T) {
+	patient, err := client.CreatePatient("Boaty4", "McBoatface", "(202) 555-0001", "male", "1995-06-12")
+	if err != nil {
+		t.Error("Unable to create patient")
+		t.Error(err)
+	}
+
+	log.Print("Create Patient")
+	log.Print(patient)
+}
+func TestFindPatient(t *testing.T) {
+	patient, err := client.FindPatient("Boaty3", "McBoatface", "1996-09-19")
+	if err != nil {
+		t.Error("Unable to create patient")
+		t.Error(err)
+	}
+
+	log.Print("Create Patient")
+	log.Print(patient)
 }
