@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/go-resty/resty/v2"
 	"github.com/jkeam/opendentalgo/models"
 	"github.com/joho/godotenv"
 )
@@ -13,14 +14,20 @@ type OpenDental struct {
 	Endpoint *API
 }
 
-// NewOpenDental - Constructor
+// NewOpenDental - Default Constructor
 func NewOpenDental() *OpenDental {
 	client := &OpenDental{}
-	return client.init()
+	return client.init(nil)
+}
+
+// NewOpenDentalWithClient - Constructor, optionally passing in resty client
+func NewOpenDentalWithClient(restyClient *resty.Client) *OpenDental {
+	client := &OpenDental{}
+	return client.init(restyClient)
 }
 
 // init - Get the client ready
-func (openDental *OpenDental) init() *OpenDental {
+func (openDental *OpenDental) init(restyClient *resty.Client) *OpenDental {
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Error loading .env file")
@@ -29,7 +36,7 @@ func (openDental *OpenDental) init() *OpenDental {
 	appKey := os.Getenv("APP_KEY")
 	apiKey := os.Getenv("API_KEY")
 	baseURL := os.Getenv("BASE_URL")
-	openDental.Endpoint = NewAPI(baseURL, appKey, apiKey)
+	openDental.Endpoint = NewAPI(baseURL, appKey, apiKey, restyClient)
 	return openDental
 }
 

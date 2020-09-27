@@ -56,14 +56,18 @@ func (api *API) createResource(path string, body []byte) ([]byte, error) {
 		return nil, err
 	}
 
-	log.Print(resp.String())
 	return resp.Body(), nil
 }
 
 // NewAPI - create the api object
-func NewAPI(baseURL string, appKey string, apiKey string) *API {
+func NewAPI(baseURL string, appKey string, apiKey string, restyClient *resty.Client) *API {
+	client := restyClient
+	if client == nil {
+		client = resty.New()
+	}
+
 	return &API{
-		client:  resty.New(),
+		client:  client,
 		appKey:  appKey,
 		apiKey:  apiKey,
 		baseURL: baseURL,

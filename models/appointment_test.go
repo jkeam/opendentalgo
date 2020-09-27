@@ -22,49 +22,49 @@ func TestSerializeAppointmentBundle(t *testing.T) {
 		return
 	}
 
-	assert.Equal(t, len(data.Entry), 567, "Wrong number of appointments")
-	assert.Equal(t, data.Type, "searchset", "Type does not match")
-	assert.Equal(t, data.Total, 567, "Total does not match")
+	assert.Equal(t, 567, len(data.Entry), "Wrong number of appointments")
+	assert.Equal(t, "searchset", data.Type, "Type does not match")
+	assert.Equal(t, 567, data.Total, "Total does not match")
 
 	appointment := data.Entry[0]
-	assert.Equal(t, appointment.FullURL, "https://api.opendental.com/fhir/v2/appointment/4", "Wrong URL")
+	assert.Equal(t, "https://api.opendental.com/fhir/v2/appointment/4", appointment.FullURL, "Wrong URL")
 
 	appointmentDetail := appointment.Resource
-	assert.Equal(t, appointmentDetail.ResourceType, "Appointment", "Resource is not matching")
-	assert.Equal(t, appointmentDetail.ID, "4", "ID is not matching")
-	assert.Equal(t, appointmentDetail.Status, "fulfilled", "Status is not matching")
-	assert.Equal(t, appointmentDetail.Priority, 5, "Priority is not matching")
-	assert.Equal(t, appointmentDetail.Description, "PerEx, Flo, DentAdj", "Description is not matching")
-	assert.Equal(t, appointmentDetail.Start, "2017-03-17T08:00:00", "Start is not matching")
-	assert.Equal(t, appointmentDetail.End, "2017-03-17T08:40:00", "End is not matching")
-	assert.Equal(t, appointmentDetail.MinutesDuration, 40, "Minutes duration is not matching")
+	assert.Equal(t, "Appointment", appointmentDetail.ResourceType, "Resource is not matching")
+	assert.Equal(t, "4", appointmentDetail.ID, "ID is not matching")
+	assert.Equal(t, "fulfilled", appointmentDetail.Status, "Status is not matching")
+	assert.Equal(t, 5, appointmentDetail.Priority, 5, "Priority is not matching")
+	assert.Equal(t, "PerEx, Flo, DentAdj", appointmentDetail.Description, "Description is not matching")
+	assert.Equal(t, "2017-03-17T08:00:00", appointmentDetail.Start, "Start is not matching")
+	assert.Equal(t, "2017-03-17T08:40:00", appointmentDetail.End, "End is not matching")
+	assert.Equal(t, 40, appointmentDetail.MinutesDuration, "Minutes duration is not matching")
 
 	participants := appointmentDetail.Participants
-	assert.Equal(t, len(participants), 3, "Participant count is not matching")
+	assert.Equal(t, 3, len(participants), "Participant count is not matching")
 
 	participant := participants[0]
-	assert.Equal(t, participant.Required, "required", "Required is not matching")
-	assert.Equal(t, participant.Status, "needsaction", "Status is not matching")
+	assert.Equal(t, "required", participant.Required, "Required is not matching")
+	assert.Equal(t, "needsaction", participant.Status, "Status is not matching")
 
 	actor := participant.Actor
-	assert.Equal(t, actor.Reference, "patient/1", "Actor reference is not matching")
-	assert.Equal(t, actor.Display, "Hermione Granger", "Actor display is not matching")
+	assert.Equal(t, "patient/1", actor.Reference, "Actor reference is not matching")
+	assert.Equal(t, "Hermione Granger", actor.Display, "Actor display is not matching")
 
 	participantTypes := participant.Type
-	assert.Equal(t, len(participantTypes), 1, "Participant type count is not matching")
+	assert.Equal(t, 1, len(participantTypes), "Participant type count is not matching")
 
 	coding := participantTypes[0].Coding
-	assert.Equal(t, len(coding), 1, "Coding type count is not matching")
+	assert.Equal(t, 1, len(coding), "Coding type count is not matching")
 
 	code := coding[0]
-	assert.Equal(t, code.System, "http://hl7.org/fhir/participant-type", "Code system is not matching")
-	assert.Equal(t, code.Code, "PART", "Code code is not matching")
-	assert.Equal(t, code.Display, "Participation", "Code participation is not matching")
+	assert.Equal(t, "http://hl7.org/fhir/participant-type", code.System, "Code system is not matching")
+	assert.Equal(t, "PART", code.Code, "Code code is not matching")
+	assert.Equal(t, "Participation", code.Display, "Code participation is not matching")
 
 	meta := appointmentDetail.Meta
-	assert.Equal(t, meta.LastUpdated, "2019-01-02T12:22:38", "Meta last updated is not matching")
+	assert.Equal(t, "2019-01-02T12:22:38", meta.LastUpdated, "Meta last updated is not matching")
 
 	search := appointment.Search
-	assert.Equal(t, search.Mode, "match", "Search mode last updated is not matching")
-	assert.Equal(t, search.Score, 1.0, "Search score last updated is not matching")
+	assert.Equal(t, "match", search.Mode, "Search mode last updated is not matching")
+	assert.Equal(t, 1.0, search.Score, "Search score last updated is not matching")
 }

@@ -1,0 +1,76 @@
+{
+  "resourceType":"Bundle",
+  "type":"searchset",
+  "total":1,
+  "entry":[
+     {
+        "fullUrl":"https://api.opendental.com/fhir/v2/patient/332",
+        "resource":{
+           "resourceType":"Patient",
+           "id":"332",
+           "identifier":[
+              {
+                 "use":"usual",
+                 "type":{
+                    "text":"Open Dental patient.PatNum"
+                 },
+                 "value":"332"
+              }
+           ],
+           "active":true,
+           "name":[
+              {
+                 "use":"usual",
+                 "text":"Boaty3 McBoatface",
+                 "family":"McBoatface",
+                 "given":"Boaty3"
+              }
+           ],
+           "telecom":[
+              {
+                 "system":"phone",
+                 "value":"(555) 123-0001",
+                 "use":"home",
+                 "rank":0
+              }
+           ],
+           "gender":"male",
+           "birthDate":"1996-09-19T00:00:00",
+           "address":[
+              {
+                 "use":"home",
+                 "line":[
+                    ""
+                 ]
+              }
+           ],
+           "maritalStatus":{
+              "coding":[
+                 {
+                    "system":"http://hl7.org/fhir/marital-status",
+                    "code":"S",
+                    "display":"Never Married"
+                 }
+              ]
+           },
+           "careProvider":[
+              {
+                 "reference":"practitioner/1",
+                 "display":"Madame Pomprey, DMD"
+              }
+           ],
+           "managingOrganization":{
+              "reference":"organization/0",
+              "display":"Magical Dental"
+           },
+           "meta":{
+              "lastUpdated":"2020-09-21T06:31:50"
+           }
+        },
+        "search":{
+           "mode":"match",
+           "score":1.0
+        }
+     }
+  ]
+}

@@ -21,59 +21,59 @@ func TestSerializePatientBundle(t *testing.T) {
 		return
 	}
 
-	assert.Equal(t, len(data.Entry), 259, "Wrong number of patients")
-	assert.Equal(t, data.Total, 259, "Wrong number of patients")
-	assert.Equal(t, data.Type, "searchset", "Type does not match")
+	assert.Equal(t, 259, len(data.Entry), "Wrong number of patients")
+	assert.Equal(t, 259, data.Total, "Wrong number of patients")
+	assert.Equal(t, "searchset", data.Type, "Type does not match")
 
 	patient := data.Entry[0]
-	assert.Equal(t, patient.FullURL, "https://api.opendental.com/fhir/v2/patient/1", "Full URL does not match")
+	assert.Equal(t, "https://api.opendental.com/fhir/v2/patient/1", patient.FullURL, "Full URL does not match")
 
 	patientDetail := patient.Resource
-	assert.Equal(t, patientDetail.ResourceType, "Patient", "Resource type does not match")
-	assert.Equal(t, patientDetail.ID, "1", "ID does not match")
-	assert.Equal(t, patientDetail.Active, true, "Active does not match")
+	assert.Equal(t, patientDetail.ResourceType, "Patient", patientDetail.ResourceType, "Resource type does not match")
+	assert.Equal(t, "1", patientDetail.ID, "ID does not match")
+	assert.Equal(t, true, patientDetail.Active, "Active does not match")
 
-	assert.Equal(t, len(patientDetail.Names), 1, "Names length does not match")
+	assert.Equal(t, 1, len(patientDetail.Names), "Names length does not match")
 	name := patientDetail.Names[0]
-	assert.Equal(t, name.Use, "usual", "Name use does not match")
-	assert.Equal(t, name.Text, "Hermione Granger", "Name text does not match")
-	assert.Equal(t, name.Family, "Granger", "Name family does not match")
-	assert.Equal(t, name.Given, "Hermione", "Name given does not match")
+	assert.Equal(t, "usual", name.Use, "Name use does not match")
+	assert.Equal(t, "Hermione Granger", name.Text, "Name text does not match")
+	assert.Equal(t, "Granger", name.Family, "Name family does not match")
+	assert.Equal(t, "Hermione", name.Given, "Name given does not match")
 
 	assert.Equal(t, len(patientDetail.Telecoms), 3, "Telecomes length does not match")
 	email := patientDetail.Telecoms[0]
-	assert.Equal(t, email.System, "email", "Telecom system does not match")
-	assert.Equal(t, email.Value, "chris@opendental.com", "Telecom value does not match")
-	assert.Equal(t, email.Use, "home", "Telecom use does not match")
-	assert.Equal(t, email.Rank, 0, "Telecom rank does not match")
+	assert.Equal(t, "email", email.System, "Telecom system does not match")
+	assert.Equal(t, "chris@opendental.com", email.Value, "Telecom value does not match")
+	assert.Equal(t, "home", email.Use, "Telecom use does not match")
+	assert.Equal(t, 0, email.Rank, "Telecom rank does not match")
 
-	assert.Equal(t, patientDetail.Gender, "female", "Gender does not match")
-	assert.Equal(t, patientDetail.BirthDate, "1997-10-28T00:00:00", "BirthDate does not match")
+	assert.Equal(t, "female", patientDetail.Gender, "Gender does not match")
+	assert.Equal(t, "1997-10-28T00:00:00", patientDetail.BirthDate, "BirthDate does not match")
 
-	assert.Equal(t, len(patientDetail.Addresses), 1, "Address length does not match")
+	assert.Equal(t, 1, len(patientDetail.Addresses), "Address length does not match")
 	address := patientDetail.Addresses[0]
-	assert.Equal(t, address.Use, "home", "Address use does not match")
-	assert.Equal(t, address.City, "Juniper", "Address city does not match")
-	assert.Equal(t, address.District, "JI", "Address district does not match")
-	assert.Equal(t, address.PostalCode, "24018", "Address postal code does not match")
+	assert.Equal(t, "home", address.Use, "Address use does not match")
+	assert.Equal(t, "Juniper", address.City, "Address city does not match")
+	assert.Equal(t, "JI", address.District, "Address district does not match")
+	assert.Equal(t, "24018", address.PostalCode, "Address postal code does not match")
 
-	assert.Equal(t, len(address.Lines), 1, "Address lines length does not match")
+	assert.Equal(t, 1, len(address.Lines), "Address lines length does not match")
 	line := address.Lines[0]
-	assert.Equal(t, line, "44 Mug Loop", "Address line does not match")
+	assert.Equal(t, "44 Mug Loop", line, "Address line does not match")
 
-	assert.Equal(t, len(patientDetail.CareProviders), 1, "Care providers length does not match")
+	assert.Equal(t, 1, len(patientDetail.CareProviders), "Care providers length does not match")
 	careProvider := patientDetail.CareProviders[0]
-	assert.Equal(t, careProvider.Reference, "practitioner/1", "Care provider reference does not match")
-	assert.Equal(t, careProvider.Reference, "practitioner/1", "Care provider reference does not match")
+	assert.Equal(t, "practitioner/1", careProvider.Reference, "Care provider reference does not match")
+	assert.Equal(t, "Madame Pomprey, DMD", careProvider.Display, "Care provider display does not match")
 
 	managingOrganization := patientDetail.ManagingOrganizations
-	assert.Equal(t, managingOrganization.Reference, "organization/1", "Managing Org reference does not match")
-	assert.Equal(t, managingOrganization.Display, "Hogwarts Hospital Wing", "Managing Org display does not match")
+	assert.Equal(t, "organization/1", managingOrganization.Reference, "Managing Org reference does not match")
+	assert.Equal(t, "Hogwarts Hospital Wing", managingOrganization.Display, "Managing Org display does not match")
 
 	meta := patientDetail.Meta
-	assert.Equal(t, meta.LastUpdated, "2020-01-06T09:34:32", "Meta does not match")
+	assert.Equal(t, "2020-01-06T09:34:32", meta.LastUpdated, "Meta does not match")
 
 	search := patient.Search
-	assert.Equal(t, search.Mode, "match", "Search mode does not match")
-	assert.Equal(t, search.Score, 1.0, "Search score does not match")
+	assert.Equal(t, "match", search.Mode, "Search mode does not match")
+	assert.Equal(t, 1.0, search.Score, "Search score does not match")
 }

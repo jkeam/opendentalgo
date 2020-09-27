@@ -1,0 +1,72 @@
+{
+  "resourceType":"Patient",
+  "id":"335",
+  "identifier":[
+     {
+        "use":"usual",
+        "type":{
+           "text":"Open Dental patient.PatNum"
+        },
+        "value":"335"
+     }
+  ],
+  "active":true,
+  "name":[
+     {
+        "use":"usual",
+        "text":"Boaty5 McBoatface",
+        "family":"McBoatface",
+        "given":"Boaty5"
+     }
+  ],
+  "telecom":[
+     {
+        "system":"phone",
+        "value":"(202) 555-0001",
+        "use":"mobile",
+        "rank":0
+     }
+  ],
+  "gender":"male",
+  "birthDate":"1995-06-12T00:00:00",
+  "address":[
+     {
+        "use":"home",
+        "line":[
+           null,
+           null
+        ]
+     }
+  ],
+  "maritalStatus":{
+     "coding":[
+        {
+           "system":"http://hl7.org/fhir/marital-status",
+           "code":"S",
+           "display":"Never Married"
+        }
+     ]
+  },
+  "communication":[
+     {
+        "language":{
+           "coding":[
+              {
+
+              }
+           ]
+        },
+        "preferred":true
+     }
+  ],
+  "careProvider":[
+     {
+        "reference":"practitioner/1",
+        "display":"Madame Pomprey, DMD"
+     }
+  ],
+  "managingOrganization":{
+     "reference":"organization/0",
+     "display":"Magical Dental"
+  }
+}

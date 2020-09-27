@@ -1,0 +1,67 @@
+{
+  "resourceType":"Bundle",
+  "type":"searchset",
+  "total":1,
+  "entry":[
+     {
+        "fullUrl":"https://api.opendental.com/fhir/v2/location/1",
+        "resource":{
+           "resourceType":"Location",
+           "id":"1",
+           "identifier":[
+              {
+                 "use":"usual",
+                 "type":{
+                    "text":"Open Dental FK to operatory.OperatoryNum"
+                 },
+                 "value":"1"
+              }
+           ],
+           "status":"active",
+           "name":"Un",
+           "mode":"instance",
+           "telecom":[
+              {
+                 "system":"phone",
+                 "value":"3332221111",
+                 "use":"work",
+                 "rank":1
+              },
+              {
+                 "system":"email",
+                 "value":"ibemcgehee@gmail.com",
+                 "use":"work",
+                 "rank":2
+              }
+           ],
+           "address":{
+              "use":"work",
+              "type":"physical",
+              "line":[
+                 "123 Lake Drive"
+              ],
+              "city":"Hogsmeade",
+              "state":"BI",
+              "postalCode":"99669"
+           },
+           "physicalType":{
+              "coding":[
+                 {
+                    "system":"http://hl7.org/fhir/location-physical-type",
+                    "code":"ro",
+                    "display":"Room"
+                 }
+              ]
+           },
+           "managingOrganization":{
+              "reference":"Organization/1",
+              "display":"Hogwarts Hospital Wing"
+           }
+        },
+        "search":{
+           "mode":"match",
+           "score":1.0
+        }
+     }
+  ]
+}
