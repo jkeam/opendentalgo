@@ -14,6 +14,10 @@ import (
 var client *OpenDental
 
 func TestMain(m *testing.M) {
+	os.Setenv("APP_KEY", "APP_KEY")
+	os.Setenv("API_KEY", "API_KEY")
+	os.Setenv("BASE_URL", "https://api.opendental.com/fhir/v2")
+
 	restyClient := resty.New()
 	httpmock.ActivateNonDefault(restyClient.GetClient())
 	defer httpmock.DeactivateAndReset()

@@ -30,7 +30,7 @@ func NewOpenDentalWithClient(restyClient *resty.Client) *OpenDental {
 func (openDental *OpenDental) init(restyClient *resty.Client) *OpenDental {
 	err := godotenv.Load()
 	if err != nil {
-		log.Fatal("Error loading .env file")
+		log.Print("Unable to load .env file")
 	}
 
 	appKey := os.Getenv("APP_KEY")
