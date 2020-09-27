@@ -28,8 +28,7 @@ func NewOpenDentalWithClient(restyClient *resty.Client) *OpenDental {
 
 // init - Get the client ready
 func (openDental *OpenDental) init(restyClient *resty.Client) *OpenDental {
-	err := godotenv.Load()
-	if err != nil {
+	if err := godotenv.Load(); err != nil {
 		log.Print("Unable to load .env file")
 	}
 
