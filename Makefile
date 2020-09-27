@@ -1,4 +1,4 @@
-all: clean build compile
+all: clean build
 .PHONY: all
 
 .PHONY: clean
@@ -7,12 +7,4 @@ clean:
 
 .PHONY: build
 build:
-	go build -o bin/opendentalgo opendentalgo.go
-
-.PHONY: run
-run:
-	go run opendentalgo.go
-
-.PHONY: compile
-compile:
-	GOOS=linux GOARCH=amd64 go build -o bin/main-linux-amd64 opendentalgo.go
+	GOOS=linux GOARCH=amd64 go build -o bin/main-linux-amd64 github.com/jkeam/opendentalgo
