@@ -1,5 +1,5 @@
 # OpenDental Go
-[![Build Status](https://travis-ci.org/jkeam/opendentalgo.png?branch=master)](https://travis-ci.org/jkeam/opendentalgo)
+[![Build Status](https://www.travis-ci.com/jkeam/opendentalgo.svg?branch=master)](https://www.travis-ci.com/jkeam/opendentalgo)
 
 OpenDental Golang REST API client.
 
